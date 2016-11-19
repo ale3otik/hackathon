@@ -22,39 +22,69 @@
     return self;
 }
 
+- (NSArray *)matchUsers:(NSArray *)users toOrders:orders {
+    return nil;
+}
+
+- (NSArray *)matchProducts:(NSArray *)products toOrders:orders {
+    return nil;
+}
+
 - (void)obtainOrdersWithHandler:(ResultHandler)handler {
-    
-    sleep(2);
     
     PFQuery *query = [PFQuery queryWithClassName:@"Order"];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSArray *results = [[NSArray alloc] init];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
-//            NSArray
-            for (PFObject *object in objects) {
-                
-                
-//                Order *order = [Order orderWithPFObject:object];
+            
+            NSMutableArray *userIds = [[NSMutableArray alloc] init];
+            NSMutableArray *productIds = [[NSMutableArray alloc] init];
+            for (PFObject *order in orders) {
+                [userIds addObject:order[@"userId"]];
+                [productIds addObject:order[@"productId"]];
             }
-            [query findObjects];
+            
+            PFQuery *queryUser = [PFQuery queryWithClassName:@"User"];
+            PFQuery *queryProduct = [PFQuery queryWithClassName:@"Product"];
+            [queryUser whereKey:@"objectId" containedIn:userIds];
+            [queryProduct whereKey:@"objectId" containedIn:productIds];
+            
+            [queryUser findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+                if (!error) {
+                    [queryProduct findObjectsInBackgroundWithBlock:^(NSArray *products, NSError *error) {
+                        if (!error) {
+                            NSArray *matchedUsersObjects = [self matchUsers:users toOrders:orders];
+                            NSArray *matchedProductsObjects = [self matchProducts:products toOrders:orders];
+                            NSMutableArray *results = [[NSMutableArray alloc] init];
+                            for(int i = 0; i < orders.count; ++i) {
+                                [results addObject:[Order orderWithPFOrder:orders[i]
+                                                                 andPFUser:matchedUsersObjects[i]
+                                                              andPFProduct:matchedProductsObjects[i]]];
+                            }
+                            
+                            for(Order *object in results) {
+                                NSLog(@"%@", object.product.name);
+                            }
+//                            execiteInMainQueue(^{
+//                                handler(results);
+//                            });
+                        }
+                        else {
+                            NSLog(@"Error: %@ %@", error, [error userInfo]);
+                        }
+                    }];
+                } else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
-        
-        
-        execiteInMainQueue(^{
-            handler(results);
-        });
-        
     }];
 }
 
 - (void)finishOrder:(Order *)order
         withHandler:(void (^)(void))handler {
-    
-//    [gameScore removeObjectForKey:@"playerName"];
     
 }
 

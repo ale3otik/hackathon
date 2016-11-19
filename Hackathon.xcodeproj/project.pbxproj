@@ -38,6 +38,7 @@
 		A19FFF5E1DE0BA8F00F85889 /* OrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
 		A19FFF5F1DE0BA8F00F85889 /* OrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderManager.m; sourceTree = "<group>"; };
 		F89C85D67B3D262486A59097 /* Pods-Hackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hackathon/Pods-Hackathon.release.xcconfig"; sourceTree = "<group>"; };
+		FA5F3D2F1DE115BF0095FE5A /* QueryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryTests.h; sourceTree = "<group>"; };
 		FA7C84841DE0AC7900EDA2F3 /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7C84881DE0AC7900EDA2F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA7C848A1DE0AC7900EDA2F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		A19FFF541DE0B97400F85889 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA5F3D301DE115CB0095FE5A /* Tests */,
 				A19FFF531DE0B96D00F85889 /* Order */,
 				A19FFF581DE0B98500F85889 /* Product */,
 				A19FFF5C1DE0B99C00F85889 /* User */,
@@ -144,6 +146,14 @@
 				A19FFF5A1DE0B99900F85889 /* User.m */,
 			);
 			name = User;
+			sourceTree = "<group>";
+		};
+		FA5F3D301DE115CB0095FE5A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FA5F3D2F1DE115BF0095FE5A /* QueryTests.h */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		FA7C847B1DE0AC7900EDA2F3 = {

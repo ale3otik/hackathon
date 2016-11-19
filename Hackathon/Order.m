@@ -8,6 +8,27 @@
 
 #import "Order.h"
 
-@implementation Order
 
+@interface Order ()
+
+@property (nonatomic, readwrite) User *user;
+@property (nonatomic, readwrite) Product *product;
+@property (nonatomic, readwrite) NSDate *createdAt;
+
+@end
+
+@implementation Order
+    + (instancetype) initWithProduct:(Product *)product
+                             andUser:(User *)user
+                     andCreationDate:(NSDate *)createdAt {
+        
+        Order * newOrder = [[Order alloc] init];
+        
+        // some validation
+        
+        newOrder.user = user;
+        newOrder.product = product;
+        newOrder.createdAt = createdAt;
+        return newOrder;
+    }
 @end

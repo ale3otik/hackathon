@@ -2,13 +2,24 @@
 //  ViewController.m
 //  Hackathon
 //
-//  Created by Alex on 19.11.16.
+//  Created by Danil Tulin on 11/19/16.
 //  Copyright © 2016 Alex. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <Masonry/Masonry.h>
 
-@interface ViewController ()
+#import "ViewController.h"
+#import "OrderPageController.h"
+
+#import "OrderManager.h"
+
+@interface ViewController () <OrderManagerDelegate, UIPageViewControllerDataSource,
+                              UIPageViewControllerDelegate>
+
+@property (nonatomic) OrderManager *manager;
+@property (nonatomic) UIActivityIndicatorView *indicatorView;
+
+@property (nonatomic) NSArray *orders;
 
 @end
 
@@ -16,14 +27,56 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self addIndicatorView];
+    ResultHandler handler = ^void(NSArray *orders) {
+        [self removeIndicatorView];
+        self.orders = orders;
+    };
+    [self.manager obtainOrdersWithHandler:handler];
+    [self.view setNeedsUpdateConstraints];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateViewConstraints {
+    if (_indicatorView) {
+        [self.indicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.view);
+        }];
+    }
+    [super updateViewConstraints];
 }
 
+#pragma mark - UIPageViewControllerDataSource
+
+#pragma mark - OrderManager
+
+- (OrderManager *)manager {
+    if (_manager)
+        return _manager;
+    _manager = [[OrderManager alloc] initWithDelegate:self];
+    return _manager;
+}
+
+#pragma mark - ActivityIndicatorView
+
+- (void)addIndicatorView {
+    [self.view addSubview:self.indicatorView];
+    [self.indicatorView startAnimating];
+}
+
+- (void)removeIndicatorView {
+    [self.indicatorView removeFromSuperview];
+    _indicatorView = nil;
+}
+
+- (UIActivityIndicatorView *)indicatorView {
+    if (_indicatorView)
+        return _indicatorView;
+    _indicatorView = [[UIActivityIndicatorView alloc]
+                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    return _indicatorView;
+}
 
 @end

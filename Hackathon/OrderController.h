@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  OrderController.h
 //  Hackathon
 //
 //  Created by Danil Tulin on 11/19/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface OrderController : UIViewController
 
 @end

@@ -22,7 +22,7 @@
     return self;
 }
 
-- (void)obtainOrdersWithHandler:(void (^)(NSArray *))handler {
+- (void)obtainOrdersWithHandler:(ResultHandler)handler {
     
 }
 

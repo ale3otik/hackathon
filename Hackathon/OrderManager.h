@@ -10,13 +10,14 @@
 
 #import "Order.h"
 
-@protocol OrderManagerDelegate;
+typedef void (^ResultHandler)(NSArray *);
 
+@protocol OrderManagerDelegate;
 @interface OrderManager : NSObject
 
 - (instancetype)initWithDelegate:(id <OrderManagerDelegate>)delegate;
 
-- (void)obtainOrdersWithHandler:(void (^)(NSArray *))handler;
+- (void)obtainOrdersWithHandler:(ResultHandler)handler;
 
 - (void)finishOrder:(Order *)order
         withHandler:(void (^)(void))handler;

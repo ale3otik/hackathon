@@ -14,8 +14,8 @@
 @end
 
 @implementation User
-+ (instancetype) initWithObjectId: (NSString *)objectId
-                          andName: (NSString *) name {
+
++ (instancetype) userWithName: (NSString *) name {
     User * newUser = [[User alloc] init];
     
     // some validation

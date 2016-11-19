@@ -30,28 +30,44 @@
     
     /**********************TESTTTT***************************/
     
-    User *user = [User userWithName:@"Alex" objectId:0];
-    Product *product = [Product productWithObjectId:0
-                                            andName:@"ШАВУХА С СЫРОМ"
-                                           andPrice:100];
+//    User *user = [User userWithName:@"Alex" objectId:0];
+//    Product *product = [Product productWithObjectId:0
+//                                            andName:@"ШАВУХА С СЫРОМ"
+//                                           andPrice:100];
+//    
+//    Order *tmpOrder = [Order orderWithProduct:product andUser:user andCreationDate:NULL];
+//    PFObject *order = [PFObject objectWithClassName:@"Order"];
+//    
+////    order[@"product"] = tmpOrder.product;
+//    order[@"user"] = @"lolol";//tmpOrder.user;
+//    
+////    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
+//    [order saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            // The object has been saved.
+//            NSLog(@"QUERY SUCCES");
+//        } else {
+//            NSLog(@"QUERY FAILED");
+//            NSLog(@"%@", [error description]);
+//        }
+//    }];
     
-    Order *tmpOrder = [Order orderWithProduct:product andUser:user andCreationDate:NULL];
-    PFObject *order = [PFObject objectWithClassName:@"Order"];
-    
-//    order[@"product"] = tmpOrder.product;
-    order[@"user"] = @"lolol";//tmpOrder.user;
-    
-//    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
-    [order saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // The object has been saved.
-            NSLog(@"QUERY SUCCES");
+    PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+//    [query where];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
+            // Do something with the found objects
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+            }
         } else {
-            NSLog(@"QUERY FAILED");
-            NSLog(@"%@", [error description]);
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    
+
     /**********************TESTTTT***************************/
     
     

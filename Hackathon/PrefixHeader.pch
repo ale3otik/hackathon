@@ -11,4 +11,8 @@
 
 #import <Parse/Parse.h>
 
+static void execiteInMainQueue(dispatch_block_t block) {
+    dispatch_sync(dispatch_get_main_queue(), block);
+}
+
 #endif /* PrefixHeader_pch */

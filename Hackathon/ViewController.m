@@ -76,7 +76,7 @@
     if (_indicatorView)
         return _indicatorView;
     _indicatorView = [[UIActivityIndicatorView alloc]
-                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     return _indicatorView;
 }
 

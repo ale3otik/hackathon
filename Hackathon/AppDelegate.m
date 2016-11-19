@@ -30,10 +30,17 @@
     
     /**********************TESTTTT***************************/
     
-    User *user = [User userW]
-    PFObject * order = [PFObject objectWithClassName:@"Order"];
-    order[@"product"] = @"ШАВЕРМА С СЫРОМ";
-    order[@"price"] = @100;
+    User *user = [User userWithName:@"Alex" objectId:0];
+    Product *product = [Product productWithObjectId:0
+                                            andName:@"ШАВУХА С СЫРОМ"
+                                           andPrice:100];
+    
+    Order *tmpOrder = [Order orderWithProduct:product andUser:user andCreationDate:NULL];
+    PFObject *order = [PFObject objectWithClassName:@"Order"];
+    
+//    order[@"product"] = tmpOrder.product;
+    order[@"user"] = @"lolol";//tmpOrder.user;
+    
 //    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
     [order saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {

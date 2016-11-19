@@ -13,7 +13,7 @@
 
 @interface Order : NSObject
 
-@property (nonatomic, readonly) NSString *objectId;
+@property (nonatomic) NSString *objectId;
 @property (nonatomic, readonly) User *user;
 @property (nonatomic, readonly) Product *product;
 @property (nonatomic, readonly) NSDate *createdAt;

@@ -10,16 +10,13 @@
 
 @interface User ()
     @property (nonatomic, readwrite) NSString *name;
-    @property (nonatomic, readwrite) NSString *objectId;
 @end
 
 @implementation User
-+ (instancetype) userWithName: (NSString *) name
-                     objectId: (NSString *) objectId{
++ (instancetype)userWithName:(NSString *)name {
     User * newUser = [[User alloc] init];
     
     // some validation
-    newUser.objectId = objectId;
     newUser.name = name;
     return newUser;
 }

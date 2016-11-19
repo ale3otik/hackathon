@@ -13,4 +13,7 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *objectId;
 
++ (instancetype) userWithName: (NSString *) name
+                     objectId: (NSString *) objectId;
+
 @end

@@ -17,7 +17,7 @@
 @end
 
 @implementation Product
-+ (instancetype) initWithObjectId:(NSString *)objectId
++ (instancetype) productWithObjectId:(NSString *)objectId
                           andName:(NSString *)name
                          andPrice:(NSInteger)price {
 

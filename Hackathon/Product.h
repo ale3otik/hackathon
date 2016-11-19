@@ -13,4 +13,7 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSInteger price;
 
++ (instancetype) productWithObjectId:(NSString *)objectId
+                          andName:(NSString *)name
+                         andPrice:(NSInteger)price;
 @end

@@ -18,17 +18,19 @@
 @end
 
 @implementation Order
-    + (instancetype) initWithProduct:(Product *)product
-                             andUser:(User *)user
-                     andCreationDate:(NSDate *)createdAt {
-        
-        Order * newOrder = [[Order alloc] init];
-        
-        // some validation
-        
-        newOrder.user = user;
-        newOrder.product = product;
-        newOrder.createdAt = createdAt;
-        return newOrder;
-    }
+
++ (instancetype)orderWithProduct:(Product *)product
+                         andUser:(User *)user
+                 andCreationDate:(NSDate *)createdAt {
+    
+    Order *newOrder = [[Order alloc] init];
+    
+    // some validation
+    
+    newOrder.user = user;
+    newOrder.product = product;
+    newOrder.createdAt = createdAt;
+    return newOrder;
+}
+
 @end

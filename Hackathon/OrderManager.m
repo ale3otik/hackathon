@@ -24,6 +24,9 @@
 
 - (void)obtainOrdersWithHandler:(ResultHandler)handler {
     
+    Order *order1 = [[Order alloc] ]
+    
+    NSMutableArray *array = @[];
 }
 
 - (void)finishOrder:(Order *)order

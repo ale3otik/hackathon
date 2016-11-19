@@ -18,4 +18,8 @@
 
 @property (nonatomic, readonly) NSDate *createdAt;
 
++ (instancetype)orderWithProduct:(Product *)product
+                         andUser:(User *)user
+                 andCreationDate:(NSDate *)createdAt;
+
 @end

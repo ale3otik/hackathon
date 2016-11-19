@@ -15,6 +15,7 @@
 
 @property (nonatomic, readonly) User *user;
 @property (nonatomic, readonly) Product *product;
+
 @property (nonatomic, readonly) NSDate *createdAt;
 
 @end

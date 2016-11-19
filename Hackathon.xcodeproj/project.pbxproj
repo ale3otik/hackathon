@@ -17,8 +17,6 @@
 		FA7C848F1DE0AC7900EDA2F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C848E1DE0AC7900EDA2F3 /* ViewController.m */; };
 		FA7C84951DE0AC7900EDA2F3 /* Hackathon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA7C84931DE0AC7900EDA2F3 /* Hackathon.xcdatamodeld */; };
 		FA7C84971DE0AC7900EDA2F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7C84961DE0AC7900EDA2F3 /* Assets.xcassets */; };
-		FA7C84A41DE0AE9500EDA2F3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA7C84A21DE0AE9500EDA2F3 /* Bolts.framework */; };
-		FA7C84A51DE0AE9500EDA2F3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA7C84A31DE0AE9500EDA2F3 /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +41,6 @@
 		FA7C84941DE0AC7900EDA2F3 /* Hackathon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hackathon.xcdatamodel; sourceTree = "<group>"; };
 		FA7C84961DE0AC7900EDA2F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA7C849B1DE0AC7900EDA2F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA7C84A21DE0AE9500EDA2F3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
-		FA7C84A31DE0AE9500EDA2F3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Carthage/Build/iOS/Parse.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA7C84A41DE0AE9500EDA2F3 /* Bolts.framework in Frameworks */,
-				FA7C84A51DE0AE9500EDA2F3 /* Parse.framework in Frameworks */,
 				E15D8291F637CB8D68379A98 /* libPods-Hackathon.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,8 +157,6 @@
 		FA7C84A11DE0AE9400EDA2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA7C84A21DE0AE9500EDA2F3 /* Bolts.framework */,
-				FA7C84A31DE0AE9500EDA2F3 /* Parse.framework */,
 				8AEB719D0C021AD02F4C879D /* libPods-Hackathon.a */,
 			);
 			name = Frameworks;
@@ -181,7 +173,6 @@
 				FA7C84801DE0AC7900EDA2F3 /* Sources */,
 				FA7C84811DE0AC7900EDA2F3 /* Frameworks */,
 				FA7C84821DE0AC7900EDA2F3 /* Resources */,
-				FA7C84A61DE0AE9900EDA2F3 /* ShellScript */,
 				2811B2D2F99F8D7986639B59 /* [CP] Embed Pods Frameworks */,
 				BF58AEE5A30452D95C927A04 /* [CP] Copy Pods Resources */,
 			);
@@ -283,21 +274,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hackathon/Pods-Hackathon-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		FA7C84A61DE0AE9900EDA2F3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Bolts.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Parse.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A19FFF521DE0B96A00F85889 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = A19FFF511DE0B96A00F85889 /* Order.m */; };
+		A19FFF571DE0B98200F85889 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = A19FFF561DE0B98200F85889 /* Product.m */; };
+		A19FFF5B1DE0B99900F85889 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A19FFF5A1DE0B99900F85889 /* User.m */; };
+		A19FFF601DE0BA8F00F85889 /* OrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A19FFF5F1DE0BA8F00F85889 /* OrderManager.m */; };
 		FA7C84891DE0AC7900EDA2F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C84881DE0AC7900EDA2F3 /* main.m */; };
 		FA7C848C1DE0AC7900EDA2F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C848B1DE0AC7900EDA2F3 /* AppDelegate.m */; };
 		FA7C848F1DE0AC7900EDA2F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C848E1DE0AC7900EDA2F3 /* ViewController.m */; };
@@ -18,6 +22,14 @@
 
 /* Begin PBXFileReference section */
 		A19FFF4E1DE0B20200F85889 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		A19FFF501DE0B96A00F85889 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		A19FFF511DE0B96A00F85889 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		A19FFF551DE0B98200F85889 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		A19FFF561DE0B98200F85889 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		A19FFF591DE0B99900F85889 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		A19FFF5A1DE0B99900F85889 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		A19FFF5E1DE0BA8F00F85889 /* OrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
+		A19FFF5F1DE0BA8F00F85889 /* OrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderManager.m; sourceTree = "<group>"; };
 		FA7C84841DE0AC7900EDA2F3 /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7C84881DE0AC7900EDA2F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA7C848A1DE0AC7900EDA2F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,6 +56,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A19FFF4F1DE0B94F00F85889 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA7C848D1DE0AC7900EDA2F3 /* ViewController.h */,
+				FA7C848E1DE0AC7900EDA2F3 /* ViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		A19FFF531DE0B96D00F85889 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				A19FFF501DE0B96A00F85889 /* Order.h */,
+				A19FFF511DE0B96A00F85889 /* Order.m */,
+			);
+			name = Order;
+			sourceTree = "<group>";
+		};
+		A19FFF541DE0B97400F85889 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A19FFF531DE0B96D00F85889 /* Order */,
+				A19FFF581DE0B98500F85889 /* Product */,
+				A19FFF5C1DE0B99C00F85889 /* User */,
+				A19FFF5E1DE0BA8F00F85889 /* OrderManager.h */,
+				A19FFF5F1DE0BA8F00F85889 /* OrderManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A19FFF581DE0B98500F85889 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				A19FFF551DE0B98200F85889 /* Product.h */,
+				A19FFF561DE0B98200F85889 /* Product.m */,
+			);
+			name = Product;
+			sourceTree = "<group>";
+		};
+		A19FFF5C1DE0B99C00F85889 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A19FFF591DE0B99900F85889 /* User.h */,
+				A19FFF5A1DE0B99900F85889 /* User.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
 		FA7C847B1DE0AC7900EDA2F3 = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +124,8 @@
 		FA7C84861DE0AC7900EDA2F3 /* Hackathon */ = {
 			isa = PBXGroup;
 			children = (
-				FA7C848D1DE0AC7900EDA2F3 /* ViewController.h */,
-				FA7C848E1DE0AC7900EDA2F3 /* ViewController.m */,
+				A19FFF541DE0B97400F85889 /* Model */,
+				A19FFF4F1DE0B94F00F85889 /* Controller */,
 				FA7C84871DE0AC7900EDA2F3 /* Supporting Files */,
 			);
 			path = Hackathon;
@@ -182,8 +242,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A19FFF601DE0BA8F00F85889 /* OrderManager.m in Sources */,
 				FA7C848F1DE0AC7900EDA2F3 /* ViewController.m in Sources */,
+				A19FFF5B1DE0B99900F85889 /* User.m in Sources */,
+				A19FFF521DE0B96A00F85889 /* Order.m in Sources */,
 				FA7C848C1DE0AC7900EDA2F3 /* AppDelegate.m in Sources */,
+				A19FFF571DE0B98200F85889 /* Product.m in Sources */,
 				FA7C84891DE0AC7900EDA2F3 /* main.m in Sources */,
 				FA7C84951DE0AC7900EDA2F3 /* Hackathon.xcdatamodeld in Sources */,
 			);

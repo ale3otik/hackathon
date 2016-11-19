@@ -24,12 +24,12 @@
 
 - (void)obtainOrdersWithHandler:(void (^)(NSArray *))handler {
     
-        
-    
 }
 
 - (void)finishOrder:(Order *)order
         withHandler:(void (^)(void))handler {
+    
+//    [gameScore removeObjectForKey:@"playerName"];
     
 }
 

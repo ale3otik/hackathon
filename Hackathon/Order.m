@@ -14,18 +14,19 @@
 @property (nonatomic, readwrite) User *user;
 @property (nonatomic, readwrite) Product *product;
 @property (nonatomic, readwrite) NSDate *createdAt;
-
+@property (nonatomic, readwrite) NSString *objectId;
 @end
 
 @implementation Order
-    + (instancetype) initWithProduct:(Product *)product
++ (instancetype) initWithOPbjectId:(NSString *)objectId
+                        andProduct:(Product *)product
                              andUser:(User *)user
                      andCreationDate:(NSDate *)createdAt {
         
         Order * newOrder = [[Order alloc] init];
         
         // some validation
-        
+        newOrder.objectId = objectId;
         newOrder.user = user;
         newOrder.product = product;
         newOrder.createdAt = createdAt;

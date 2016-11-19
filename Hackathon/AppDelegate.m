@@ -19,8 +19,29 @@
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"fJS9qIlbGMHqYa6M0RGyhDrmHEcDSoR3w774QmD1";
-//        configuration.server = @"http://YOUR_PARSE_SERVER:1337/parse";
+        configuration.clientKey =@"J03QSSj7jE5h75AbAxCmaOcE3vBMlLNWI0cqLuLz";
     }]];
+    
+    
+    /**********************TESTTTT***************************/
+    
+    PFObject * order = [PFObject objectWithClassName:@"Order"];
+    order[@"product"] = @"ШАВЕРМА С СЫРОМ";
+    order[@"price"] = @100;
+//    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
+    [product saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The object has been saved.
+            NSLog(@"QUERY SUCCES");
+        } else {
+            NSLog(@"QUERY FAILED");
+            NSLog(@"%@", [error description]);
+        }
+    }];
+    
+    /**********************TESTTTT***************************/
+    
+    
     
     // Override point for customization after application launch.
     return YES;

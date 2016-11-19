@@ -21,34 +21,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = @"fJS9qIlbGMHqYa6M0RGyhDrmHEcDSoR3w774QmD1";
-        configuration.clientKey =@"J03QSSj7jE5h75AbAxCmaOcE3vBMlLNWI0cqLuLz";
-    }]];
-    
-    
-    /**********************TESTTTT***************************/
-    
-    User *user = [User userW]
-    PFObject * order = [PFObject objectWithClassName:@"Order"];
-    order[@"product"] = @"ШАВЕРМА С СЫРОМ";
-    order[@"price"] = @100;
-//    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
-    [order saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // The object has been saved.
-            NSLog(@"QUERY SUCCES");
-        } else {
-            NSLog(@"QUERY FAILED");
-            NSLog(@"%@", [error description]);
-        }
-    }];
-    
-    /**********************TESTTTT***************************/
-    
-    
-    
     // Override point for customization after application launch.
     
     CGRect bounds = [UIScreen mainScreen].bounds;

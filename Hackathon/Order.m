@@ -14,7 +14,6 @@
 @property (nonatomic, readwrite) User *user;
 @property (nonatomic, readwrite) Product *product;
 @property (nonatomic, readwrite) NSDate *createdAt;
-@property (nonatomic, readwrite) NSString *objectId;
 @end
 
 @implementation Order

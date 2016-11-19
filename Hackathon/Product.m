@@ -8,6 +8,22 @@
 
 #import "Product.h"
 
-@implementation Product
+@interface Product ()
 
+@property (nonatomic, readwrite) NSString *name;
+@property (nonatomic, readwrite) NSInteger price;
+
+@end
+
+@implementation Product
++ (instancetype) initWithName:(NSString *)name andPrice:(NSInteger)price {
+
+    Product * newProduct = [[Product alloc] init];
+
+    // some validation
+
+    newProduct.name = name;
+    newProduct.price = price;
+    return newProduct;
+}
 @end

@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 
-#import <Parse/Parse.h>
 
 @interface ViewController ()
 

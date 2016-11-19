@@ -9,6 +9,6 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-
+#import <Parse/Parse.h>
 
 #endif /* PrefixHeader_pch */

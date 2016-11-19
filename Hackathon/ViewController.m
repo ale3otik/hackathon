@@ -36,16 +36,15 @@
         self.orders = orders;
     };
     [self.manager obtainOrdersWithHandler:handler];
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints {
-    
     if (_indicatorView) {
         [self.indicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
         }];
     }
-    
     [super updateViewConstraints];
 }
 

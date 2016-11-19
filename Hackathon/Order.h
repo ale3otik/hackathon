@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 
 #import "User.h"
-#import "Order.h"
+#import "Product.h"
 
 @interface Order : NSObject
 
 @property (nonatomic, readonly) User *user;
-@property (nonatomic, readonly) Order *order;
+@property (nonatomic, readonly) Product *product;
 
-@property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSDate *createdAt;
 
 @end

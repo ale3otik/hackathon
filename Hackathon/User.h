@@ -14,5 +14,5 @@
 @property (nonatomic) NSString *objectId;
 
 + (instancetype)userWithName:(NSString *)name;
-
++ (instancetype)orderWithPFUser:(PFObject *)user;
 @end

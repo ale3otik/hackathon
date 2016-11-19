@@ -26,31 +26,29 @@
     
     sleep(2);
     
-    Order *order1 = [Order orderWithProduct:[Product productWithObjectId:nil
-                                                                 andName:@"Pizza"
-                                                                andPrice:740]
-                                    andUser:[User userWithName:@"simon"
-                                                      objectId:nil]
-                            andCreationDate:[NSDate dateWithTimeIntervalSinceNow:30000]];
+    PFQuery *query = [PFQuery queryWithClassName:@"Order"];
     
-    Order *order2 = [Order orderWithProduct:[Product productWithObjectId:nil
-                                                                 andName:@"Coke"
-                                                                andPrice:120]
-                                    andUser:[User userWithName:@"michael"
-                                                      objectId:nil]
-                            andCreationDate:[NSDate dateWithTimeIntervalSinceNow:50000]];
-    
-    Order *order3 = [Order orderWithProduct:[Product productWithObjectId:nil
-                                                                 andName:@"Juice"
-                                                                andPrice:70]
-                                    andUser:[User userWithName:@"Alex"
-                                                      objectId:nil]
-                            andCreationDate:[NSDate dateWithTimeIntervalSinceNow:60000]];
-    
-    NSArray *results = @[order1, order2, order3];
-    execiteInMainQueue(^{
-        handler(results);
-    });
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSArray *results = [[NSArray alloc] init];
+        if (!error) {
+            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
+//            NSArray
+            for (PFObject *object in objects) {
+                
+                
+//                Order *order = [Order orderWithPFObject:object];
+            }
+            [query findObjects];
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+        
+        
+        execiteInMainQueue(^{
+            handler(results);
+        });
+        
+    }];
 }
 
 - (void)finishOrder:(Order *)order

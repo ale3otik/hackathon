@@ -32,4 +32,12 @@
     return newOrder;
 }
 
++ (instancetype)orderWithPFOrder:(PFObject *)order
+                       andPFUser:(PFObject *)user
+                    andPFProduct:(PFObject *)product {
+    Order *newOrder = [[Order alloc] init];
+    
+    return newOrder;
+}
+
 @end

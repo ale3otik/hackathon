@@ -22,4 +22,9 @@
                          andUser:(User *)user
                  andCreationDate:(NSDate *)createdAt;
 
++ (instancetype)orderWithPFOrder:(PFObject *)order
+                       andPFUser:(PFObject *)user
+                    andPFProduct:(PFObject *)produc;
+
+
 @end

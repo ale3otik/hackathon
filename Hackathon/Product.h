@@ -16,4 +16,6 @@
 
 + (instancetype)productWithName:(NSString *)name
                          andPrice:(NSInteger)price;
+
++ (instancetype)orderWithPFProduct:(PFObject *)product;
 @end

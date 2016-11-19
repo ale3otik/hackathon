@@ -21,4 +21,10 @@
     return newUser;
 }
 
++ (instancetype)orderWithPFUser:(PFObject *)user {
+    User * newUser = [[User alloc] init];
+    
+    return newUser;
+}
+
 @end

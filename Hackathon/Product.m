@@ -26,4 +26,10 @@
     newProduct.price = price;
     return newProduct;
 }
+
++ (instancetype)orderWithPFProduct:(PFObject *)product {
+    Product * newProduct = [[Product alloc] init];
+    
+    return newProduct;
+}
 @end

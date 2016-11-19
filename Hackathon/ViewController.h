@@ -2,7 +2,7 @@
 //  ViewController.h
 //  Hackathon
 //
-//  Created by Alex on 19.11.16.
+//  Created by Danil Tulin on 11/19/16.
 //  Copyright © 2016 Alex. All rights reserved.
 //
 
@@ -10,6 +10,4 @@
 
 @interface ViewController : UIViewController
 
-
 @end
-

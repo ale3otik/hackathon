@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,17 @@
     }]];
     
     // Override point for customization after application launch.
+    
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    self.window = [[UIWindow alloc] initWithFrame:bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    ViewController *controller = [[ViewController alloc] init];
+    
+    self.window.rootViewController = controller;
+    NSLog(@"ViewController is assigned");
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

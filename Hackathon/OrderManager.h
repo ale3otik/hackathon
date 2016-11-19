@@ -11,6 +11,7 @@
 #import "Order.h"
 
 @protocol OrderManagerDelegate;
+
 @interface OrderManager : NSObject
 
 - (instancetype)initWithDelegate:(id <OrderManagerDelegate>)delegate;

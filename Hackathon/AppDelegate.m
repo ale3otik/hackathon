@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 
+#import "User.h"
+#import "Product.h"
+#import "Order.h"
+
 @interface AppDelegate ()
 
 @end
@@ -25,11 +29,12 @@
     
     /**********************TESTTTT***************************/
     
+    User *user = [User userW]
     PFObject * order = [PFObject objectWithClassName:@"Order"];
     order[@"product"] = @"ШАВЕРМА С СЫРОМ";
     order[@"price"] = @100;
 //    product[@"createdAt"] = [NSDate dateWithTimeIntervalSinceNow:0];
-    [product saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [order saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The object has been saved.
             NSLog(@"QUERY SUCCES");

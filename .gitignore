@@ -1,3 +1,6 @@
 project.xcworkspace
+Hackathon.xcworkspace/
+Podfile.lock
+Pods/
 xcuserdata
 .DS_Store

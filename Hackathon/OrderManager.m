@@ -22,6 +22,7 @@
         self.delegate = delegate;
     }
     self.needNewRequest = false;
+    self.activeOrderIds = [[NSMutableArray alloc] init];
     [self orderListener];
     
     return self;
@@ -188,7 +189,6 @@
             }];
         }
     });
-    
 }
 
 @end

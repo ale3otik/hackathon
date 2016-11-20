@@ -13,12 +13,18 @@
 @end
 
 @implementation User
-+ (instancetype) initWithName: (NSString *) name {
++ (instancetype)userWithName:(NSString *)name {
     User * newUser = [[User alloc] init];
     
     // some validation
-    
     newUser.name = name;
+    newUser.objectId = nil;
+    return newUser;
+}
+
++ (instancetype)userWithPFUser:(PFObject *)user {
+    User * newUser = [User userWithName:user[@"telegramId"]];
+    newUser.objectId = user[@"objectId"];
     return newUser;
 }
 

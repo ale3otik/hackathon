@@ -11,5 +11,8 @@
 @interface User : NSObject
 
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic) NSString *objectId;
 
++ (instancetype)userWithName:(NSString *)name;
++ (instancetype)userWithPFUser:(PFObject *)user;
 @end

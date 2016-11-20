@@ -14,21 +14,33 @@
 @property (nonatomic, readwrite) User *user;
 @property (nonatomic, readwrite) Product *product;
 @property (nonatomic, readwrite) NSDate *createdAt;
-
 @end
 
 @implementation Order
-    + (instancetype) initWithProduct:(Product *)product
-                             andUser:(User *)user
-                     andCreationDate:(NSDate *)createdAt {
-        
-        Order * newOrder = [[Order alloc] init];
-        
-        // some validation
-        
-        newOrder.user = user;
-        newOrder.product = product;
-        newOrder.createdAt = createdAt;
-        return newOrder;
-    }
+
++ (instancetype)orderWithProduct:(Product *)product
+                         andUser:(User *)user
+                 andCreationDate:(NSDate *)createdAt {
+    
+    Order *newOrder = [[Order alloc] init];
+    
+    // some validation
+    
+    newOrder.user = user;
+    newOrder.product = product;
+    newOrder.createdAt = createdAt;
+    return newOrder;
+}
+
++ (instancetype)orderWithPFOrder:(PFObject *)order
+                       andPFUser:(PFObject *)user
+                    andPFProduct:(PFObject *)product {
+    
+    User *newUser = [User userWithPFUser:user];
+    Product *newProduct = [Product productWithPFProduct:product];
+    Order *newOrder = [Order orderWithProduct:newProduct andUser:newUser andCreationDate:order.createdAt];
+    newOrder.objectId = order.objectId;
+    return newOrder;
+}
+
 @end

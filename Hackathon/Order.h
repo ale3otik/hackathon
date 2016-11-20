@@ -13,9 +13,18 @@
 
 @interface Order : NSObject
 
+@property (nonatomic) NSString *objectId;
 @property (nonatomic, readonly) User *user;
 @property (nonatomic, readonly) Product *product;
-
 @property (nonatomic, readonly) NSDate *createdAt;
+
++ (instancetype)orderWithProduct:(Product *)product
+                         andUser:(User *)user
+                 andCreationDate:(NSDate *)createdAt;
+
++ (instancetype)orderWithPFOrder:(PFObject *)order
+                       andPFUser:(PFObject *)user
+                    andPFProduct:(PFObject *)produc;
+
 
 @end

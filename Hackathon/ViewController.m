@@ -36,7 +36,7 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self addIndicatorView];
-    ResultHandler handler = ^void(NSArray *orders) {
+    ResultHandler handler = ^void(NSMutableArray *orders) {
         [self removeIndicatorView];
         self.orders = orders;
         Order *firstOrder = [self.orders firstObject];

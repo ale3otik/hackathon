@@ -11,6 +11,7 @@
 @interface OrderManager()
 @property (nonatomic, readwrite) id<OrderManagerDelegate> delegate;
 @property (nonatomic, readwrite) NSMutableArray *activeOrderIds;
+@property (nonatomic, readwrite) bool needNewRequest;
 
 @end
 
@@ -20,7 +21,9 @@
     if (self = [super init]) {
         self.delegate = delegate;
     }
+    self.needNewRequest = false;
     [self orderListener];
+    
     return self;
 }
 
@@ -76,6 +79,7 @@
 //    }
     
     executeInMainQueue(^{
+        self.needNewRequest = true;
         handler(results);
     });
     
@@ -154,30 +158,35 @@
 
 - (void)orderListener {
     executeInBackground(^{
-        sleep(2);
-        PFQuery *query = [PFQuery queryWithClassName:@"Order"];
-        [query whereKey:@"objectId" notContainedIn:self.activeOrderIds];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
-            if (!error) {
-                ResultHandler handler = ^void(NSMutableArray *orders){
-                    NSMutableArray *newOrderIds = [[NSMutableArray alloc] init];
-                    for(Order *order in orders) {
-                        [newOrderIds addObject:order.objectId];
-                    }
-                    [self.activeOrderIds addObjectsFromArray:newOrderIds];
-                    
-                    for(Order *order in orders) {
-                        [self.delegate newOrderDidAppear:order];
-                    }
-                };
-                
-                [self getOtherDataFromDBWithOrders:orders
-                                        andHandler:handler];
-            } else {
-                NSLog(@"Error: %@ %@", error, [error userInfo]);
+        while(true){
+            while(!self.needNewRequest) {
+                sleep(2);
             }
-        }];
-        [self orderListener];
+            self.needNewRequest = false;
+            PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+            [query whereKey:@"objectId" notContainedIn:self.activeOrderIds];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
+                if (!error) {
+                    ResultHandler handler = ^void(NSMutableArray *orders){
+                        NSMutableArray *newOrderIds = [[NSMutableArray alloc] init];
+                        for(Order *order in orders) {
+                            [newOrderIds addObject:order.objectId];
+                        }
+                        [self.activeOrderIds addObjectsFromArray:newOrderIds];
+                        
+                        for(Order *order in orders) {
+                            [self.delegate newOrderDidAppear:order];
+                        }
+                        self.needNewRequest = true;
+                    };
+                    
+                    [self getOtherDataFromDBWithOrders:orders
+                                            andHandler:handler];
+                } else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
     });
     
 }

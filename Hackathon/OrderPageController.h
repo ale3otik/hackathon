@@ -10,6 +10,9 @@
 
 @interface OrderPageController : UIPageViewController
 
+// Setting current View Controller
+// Just calling setViewControllers: w/o animation
+- (void)setViewController:(UIViewController *)controller;
 
 @end
 

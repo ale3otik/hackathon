@@ -29,17 +29,22 @@
     testQuery();
     
     // Override point for customization after application launch.
-    
+
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    pageControl.backgroundColor = [UIColor whiteColor];
+
     CGRect bounds = [UIScreen mainScreen].bounds;
     self.window = [[UIWindow alloc] initWithFrame:bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    
+
     ViewController *controller = [[ViewController alloc] init];
-    
+
     self.window.rootViewController = controller;
     NSLog(@"ViewController is assigned");
     [self.window makeKeyAndVisible];
-    
+
     return YES;
 }
 

@@ -10,9 +10,14 @@
 #define PrefixHeader_pch
 
 #import <Parse/Parse.h>
+#import <Masonry/Masonry.h>
 
-static void execiteInMainQueue(dispatch_block_t block) {
-    dispatch_sync(dispatch_get_main_queue(), block);
+static void executeInBackground(dispatch_block_t block) {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), block);
+}
+
+static void executeInMainQueue(dispatch_block_t block) {
+    dispatch_async(dispatch_get_main_queue(), block);
 }
 
 #endif /* PrefixHeader_pch */

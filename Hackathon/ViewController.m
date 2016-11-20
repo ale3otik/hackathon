@@ -168,8 +168,8 @@
     if (self.orders.count == 1) {
         [self pushOrderPageControllerWithOrder:order];
     } else {
-        OrderController *controller = [OrderController orderControllerWithOrder:order
-                                                                       andIndex:0];
+        OrderController *controller = [OrderController orderControllerWithOrder:self.orders[self.index]
+                                                                       andIndex:self.index];
         
         controller.delegate = self;
         [self.pageController setViewController:controller];

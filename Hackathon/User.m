@@ -18,12 +18,13 @@
     
     // some validation
     newUser.name = name;
+    newUser.objectId = nil;
     return newUser;
 }
 
-+ (instancetype)orderWithPFUser:(PFObject *)user {
-    User * newUser = [[User alloc] init];
-    
++ (instancetype)userWithPFUser:(PFObject *)user {
+    User * newUser = [User userWithName:user[@"name"]];
+    newUser.objectId = user[@"objectId"];
     return newUser;
 }
 

@@ -24,12 +24,13 @@
     // some validation
     newProduct.name = name;
     newProduct.price = price;
+    newProduct.objectId = nil;
     return newProduct;
 }
 
-+ (instancetype)orderWithPFProduct:(PFObject *)product {
-    Product * newProduct = [[Product alloc] init];
-    
++ (instancetype)productWithPFProduct:(PFObject *)product {
+    Product * newProduct = [Product productWithName:product[@"name"] andPrice:(int)product[@"price"]];
+    newProduct.objectId = product[@"objectId"];
     return newProduct;
 }
 @end

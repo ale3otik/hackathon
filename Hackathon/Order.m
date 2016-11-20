@@ -35,8 +35,11 @@
 + (instancetype)orderWithPFOrder:(PFObject *)order
                        andPFUser:(PFObject *)user
                     andPFProduct:(PFObject *)product {
-    Order *newOrder = [[Order alloc] init];
     
+    User *newUser = [User userWithPFUser:user];
+    Product *newProduct = [Product productWithPFProduct:product];
+    Order *newOrder = [Order orderWithProduct:newProduct andUser:newUser andCreationDate:order[@"createdAt"]];
+    newOrder.objectId = order[@"objectId"];
     return newOrder;
 }
 

@@ -22,12 +22,31 @@
     return self;
 }
 
-- (NSArray *)matchUsers:(NSArray *)users toOrders:orders {
-    return nil;
+- (NSArray *)matchUsers:(NSArray *)users toOrders:(NSArray *)orders {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for(PFObject *order in orders){
+        for(PFObject *user in users){
+            if([order[@"userId"] isEqual: user[@"objectId"]]) {
+                [result addObject:user];
+                break;
+            }
+        }
+    }
+    
+    return result;
 }
 
-- (NSArray *)matchProducts:(NSArray *)products toOrders:orders {
-    return nil;
+- (NSArray *)matchProducts:(NSArray *)products toOrders:(NSArray *)orders {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for(PFObject *order in orders){
+        for(PFObject * product in products) {
+            if([order[@"userId"] isEqual: product[@"objectId"]]) {
+                [result addObject:product];
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 - (void)obtainOrdersWithHandler:(ResultHandler)handler {
@@ -53,6 +72,9 @@
                 if (!error) {
                     [queryProduct findObjectsInBackgroundWithBlock:^(NSArray *products, NSError *error) {
                         if (!error) {
+                            NSLog(@"%lu", (unsigned long)orders.count);
+                            NSLog(@"%lu", (unsigned long)users.count);
+                            NSLog(@"%lu", (unsigned long)products.count);
                             NSArray *matchedUsersObjects = [self matchUsers:users toOrders:orders];
                             NSArray *matchedProductsObjects = [self matchProducts:products toOrders:orders];
                             NSMutableArray *results = [[NSMutableArray alloc] init];
@@ -61,10 +83,10 @@
                                                                  andPFUser:matchedUsersObjects[i]
                                                               andPFProduct:matchedProductsObjects[i]]];
                             }
-                            
-                            for(Order *object in results) {
-                                NSLog(@"%@", object.product.name);
-                            }
+//
+//                            for(Order *object in results) {
+//                                NSLog(@"%@ -  %@", object.product.name, object.user.name);
+//                            }
 //                            execiteInMainQueue(^{
 //                                handler(results);
 //                            });

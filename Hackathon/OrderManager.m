@@ -39,11 +39,16 @@
 - (NSArray *)matchProducts:(NSArray *)products toOrders:(NSArray *)orders {
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for(PFObject *order in orders){
+        bool found = false;
         for(PFObject * product in products) {
             if([order[@"productId"] isEqual: product.objectId]) {
                 [result addObject:product];
+                found = true;
                 break;
             }
+        }
+        if(!found) {
+            NSLog(@"not found %@",order[@"productId"]);
         }
     }
     return result;
@@ -77,9 +82,17 @@
 - (void) getOtherDataFromDBWithOrders:(NSArray *)orders andHandler:(ResultHandler)handler {
     NSMutableArray *userIds = [[NSMutableArray alloc] init];
     NSMutableArray *productIds = [[NSMutableArray alloc] init];
+    NSMutableArray *validOrders = [[NSMutableArray alloc] init];
     for (PFObject *order in orders) {
-        [userIds addObject:order[@"userId"]];
-        [productIds addObject:order[@"productId"]];
+        NSString *userId = order[@"userId"];
+        NSString *productId = order[@"productId"];
+        if(userId == nil || productId == nil) {
+            continue;
+        }
+        
+        [userIds addObject:userId];
+        [productIds addObject:productId];
+        [validOrders addObject:order];
     }
     
     PFQuery *queryUser = [PFQuery queryWithClassName:@"User"];
@@ -91,7 +104,7 @@
         if (!error) {
             [queryProduct findObjectsInBackgroundWithBlock:^(NSArray *products, NSError *error) {
                 if (!error) {
-                    [self processingResultsOfObtainingOrdersWithOrders:orders
+                    [self processingResultsOfObtainingOrdersWithOrders:validOrders
                                                            andProducts:products
                                                               andUsers:users
                                                            withHandler:handler];

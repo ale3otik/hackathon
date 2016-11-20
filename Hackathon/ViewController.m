@@ -27,6 +27,8 @@
 
 @property (nonatomic) NSInteger index;
 
+@property (nonatomic) OrderPageController *pageController;
+
 @end
 
 @implementation ViewController
@@ -61,14 +63,14 @@
                                                                    andIndex:0];
     
     controller.delegate = self;
-    OrderPageController *pageController = [[OrderPageController alloc] init];
+    self.pageController = [[OrderPageController alloc] init];
     
     UINavigationController *navigationController = [[UINavigationController alloc]
-                                                    initWithRootViewController:pageController];
+                                                    initWithRootViewController:self.pageController];
     
-    pageController.dataSource = self;
-    pageController.delegate = self;
-    [pageController setViewController:controller];
+    self.pageController.dataSource = self;
+    self.pageController.delegate = self;
+    [self.pageController setViewController:controller];
     [self presentViewController:navigationController
                        animated:YES
                      completion:nil];
@@ -162,8 +164,15 @@
     AudioServicesPlaySystemSound(1000);
     
     [self.orders addObject:order];
+    
     if (self.orders.count == 1) {
         [self pushOrderPageControllerWithOrder:order];
+    } else {
+        OrderController *controller = [OrderController orderControllerWithOrder:self.orders[self.index]
+                                                                       andIndex:self.index];
+        
+        controller.delegate = self;
+        [self.pageController setViewController:controller];
     }
 }
 

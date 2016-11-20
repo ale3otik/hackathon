@@ -1,4 +1,6 @@
 project.xcworkspace
+Hackathon.xcworkspace/
+Podfile.lock
+Pods/
 xcuserdata
-Carthage
-Cartfile.resolved
+.DS_Store

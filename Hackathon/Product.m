@@ -29,7 +29,7 @@
 }
 
 + (instancetype)productWithPFProduct:(PFObject *)product {
-    Product * newProduct = [Product productWithName:product[@"name"] andPrice:(int)product[@"price"]];
+    Product * newProduct = [Product productWithName:product[@"name"] andPrice:[product[@"price"] integerValue]];
     newProduct.objectId = product[@"objectId"];
     return newProduct;
 }

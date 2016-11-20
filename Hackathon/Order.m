@@ -38,7 +38,7 @@
     
     User *newUser = [User userWithPFUser:user];
     Product *newProduct = [Product productWithPFProduct:product];
-    Order *newOrder = [Order orderWithProduct:newProduct andUser:newUser andCreationDate:order[@"createdAt"]];
+    Order *newOrder = [Order orderWithProduct:newProduct andUser:newUser andCreationDate:order.createdAt];
     newOrder.objectId = order[@"objectId"];
     return newOrder;
 }

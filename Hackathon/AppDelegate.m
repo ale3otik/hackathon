@@ -27,6 +27,7 @@
         configuration.clientKey =@"J03QSSj7jE5h75AbAxCmaOcE3vBMlLNWI0cqLuLz";
     }]];
     
+//    testQuery();
     // Override point for customization after application launch.
 
     UIPageControl *pageControl = [UIPageControl appearance];

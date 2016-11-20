@@ -46,6 +46,17 @@
         executeInMainQueue(^{
             handler(results);
         });
+
+        for (int i = 0; i < 10; i++) {
+            sleep(4);
+            NSString *productName = [@"Pizza" stringByAppendingString:[[NSNumber numberWithInt:i] stringValue]];
+            executeInMainQueue(^{
+                [self.delegate newOrderDidAppear:[Order orderWithProduct:[Product productWithName:productName
+                                                                                         andPrice:i]
+                                                                 andUser:[User userWithName:@"simon"]
+                                                         andCreationDate:[NSDate date]]];
+            });
+        }
     });
 }
 

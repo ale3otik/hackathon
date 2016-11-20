@@ -80,6 +80,7 @@
     _productName.text = self.order.product.name;
     _productName.font = [UIFont systemFontOfSize:200];
     _productName.textAlignment = NSTextAlignmentCenter;
+    _productName.adjustsFontSizeToFitWidth = YES;
     return _productName;
 }
 

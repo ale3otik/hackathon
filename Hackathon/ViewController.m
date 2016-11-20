@@ -7,6 +7,7 @@
 //
 
 #import <Masonry/Masonry.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "ViewController.h"
 
@@ -32,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self addIndicatorView];
     ResultHandler handler = ^void(NSArray *orders) {
@@ -150,7 +151,12 @@
 #pragma mark - <OrderManagerDelegate>
 
 - (void)newOrderDidAppear:(Order *)order {
-    self.orders = (NSMutableArray *)[self.orders arrayByAddingObject:order];
+    AudioServicesPlaySystemSound(1000);
+
+    [self.orders addObject:order];
+    if (self.orders.count == 1) {
+        [self pushOrderPageControllerWithOrder:order];
+    }
 }
 
 #pragma mark - ActivityIndicatorView

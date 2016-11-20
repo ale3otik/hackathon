@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		A1B6061C1DE145E30065F376 /* OCLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A1B6061F1DE145E30065F376 /* Build configuration list for PBXAggregateTarget "OCLint" */;
+			buildPhases = (
+				A1B606201DE145EC0065F376 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = OCLint;
+			productName = OCLint;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		A14EA4CE1DE0D6A500CA8697 /* OrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14EA4CD1DE0D6A500CA8697 /* OrderController.m */; };
 		A14EA4D21DE0D7E200CA8697 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14EA4D11DE0D7E200CA8697 /* ViewController.m */; };
@@ -238,6 +252,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Alex;
 				TargetAttributes = {
+					A1B6061C1DE145E30065F376 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					FA7C84831DE0AC7900EDA2F3 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 34F67V55EC;
@@ -259,6 +277,7 @@
 			projectRoot = "";
 			targets = (
 				FA7C84831DE0AC7900EDA2F3 /* Hackathon */,
+				A1B6061C1DE145E30065F376 /* OCLint */,
 			);
 		};
 /* End PBXProject section */
@@ -305,6 +324,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		A1B606201DE145EC0065F376 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "source ~/.bash_profile\ncd ${SRCROOT}\nxcodebuild clean\nxcodebuild | xcpretty -r json-compilation-database\noclint-json-compilation-database -- -report-type xcode";
+		};
 		BF58AEE5A30452D95C927A04 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +375,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		A1B6061D1DE145E30065F376 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A1B6061E1DE145E30065F376 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		FA7C849C1DE0AC7900EDA2F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -478,6 +524,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1B6061F1DE145E30065F376 /* Build configuration list for PBXAggregateTarget "OCLint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B6061D1DE145E30065F376 /* Debug */,
+				A1B6061E1DE145E30065F376 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FA7C847F1DE0AC7900EDA2F3 /* Build configuration list for PBXProject "Hackathon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -10,7 +10,7 @@
 
 #import "Order.h"
 
-typedef void (^ResultHandler)(NSArray *);
+typedef void (^ResultHandler)(NSMutableArray *);
 
 @protocol OrderManagerDelegate;
 @interface OrderManager : NSObject

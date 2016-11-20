@@ -34,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     [self.view addSubview:self.productName];
     [self.view addSubview:self.price];
     [self.view addSubview:self.date];
@@ -118,12 +120,13 @@
     if (_doneButton)
         return _doneButton;
     _doneButton = [[UIButton alloc] init];
-    NSDictionary *attrs = @{NSFontAttributeName: [UIFont systemFontOfSize:200]};
+    NSDictionary *attrs = @{NSFontAttributeName: [UIFont systemFontOfSize:200],
+                            NSForegroundColorAttributeName: [UIColor whiteColor]};
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"DONE"
                                                                  attributes:attrs];
     [_doneButton setAttributedTitle:attrString
                            forState:UIControlStateNormal];
-    _doneButton.backgroundColor = [UIColor greenColor];
+    _doneButton.backgroundColor = [UIColor lightGrayColor];
     [_doneButton addTarget:self
                     action:@selector(didTapDoneButton)
           forControlEvents:UIControlEventTouchUpInside];

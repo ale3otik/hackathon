@@ -59,12 +59,17 @@
 - (void)pushOrderPageControllerWithOrder:(Order *)order {
     OrderController *controller = [OrderController orderControllerWithOrder:order
                                                                    andIndex:0];
+    
     controller.delegate = self;
     OrderPageController *pageController = [[OrderPageController alloc] init];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc]
+                                                    initWithRootViewController:pageController];
+    
     pageController.dataSource = self;
     pageController.delegate = self;
     [pageController setViewController:controller];
-    [self presentViewController:pageController
+    [self presentViewController:navigationController
                        animated:YES
                      completion:nil];
 }

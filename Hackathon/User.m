@@ -23,7 +23,7 @@
 }
 
 + (instancetype)userWithPFUser:(PFObject *)user {
-    User * newUser = [User userWithName:user[@"name"]];
+    User * newUser = [User userWithName:user[@"telegramId"]];
     newUser.objectId = user[@"objectId"];
     return newUser;
 }

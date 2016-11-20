@@ -26,7 +26,7 @@
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for(PFObject *order in orders){
         for(PFObject *user in users){
-            if([order[@"userId"] isEqual: user[@"objectId"]]) {
+            if([order[@"userId"] isEqual: user.objectId]) {
                 [result addObject:user];
                 break;
             }
@@ -40,7 +40,7 @@
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for(PFObject *order in orders){
         for(PFObject * product in products) {
-            if([order[@"userId"] isEqual: product[@"objectId"]]) {
+            if([order[@"productId"] isEqual: product.objectId]) {
                 [result addObject:product];
                 break;
             }
@@ -77,19 +77,21 @@
                             NSLog(@"%lu", (unsigned long)products.count);
                             NSArray *matchedUsersObjects = [self matchUsers:users toOrders:orders];
                             NSArray *matchedProductsObjects = [self matchProducts:products toOrders:orders];
+                            
+                            NSLog(@"%lu", (unsigned long)matchedUsersObjects.count);
+                            NSLog(@"%lu", (unsigned long)matchedProductsObjects.count);
+                            NSLog(@"%lu", (unsigned long)products.count);
+                            
+                            
                             NSMutableArray *results = [[NSMutableArray alloc] init];
                             for(int i = 0; i < orders.count; ++i) {
                                 [results addObject:[Order orderWithPFOrder:orders[i]
                                                                  andPFUser:matchedUsersObjects[i]
                                                               andPFProduct:matchedProductsObjects[i]]];
                             }
-//
-//                            for(Order *object in results) {
-//                                NSLog(@"%@ -  %@", object.product.name, object.user.name);
-//                            }
-//                            execiteInMainQueue(^{
-//                                handler(results);
-//                            });
+                            execiteInMainQueue(^{
+                                handler(results);
+                            });
                         }
                         else {
                             NSLog(@"Error: %@ %@", error, [error userInfo]);

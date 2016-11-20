@@ -26,7 +26,7 @@
         configuration.applicationId = @"fJS9qIlbGMHqYa6M0RGyhDrmHEcDSoR3w774QmD1";
         configuration.clientKey =@"J03QSSj7jE5h75AbAxCmaOcE3vBMlLNWI0cqLuLz";
     }]];
-//    testQuery();
+    testQuery();
     
     // Override point for customization after application launch.
     

@@ -108,6 +108,7 @@
     label.text = text;
     label.font = [UIFont systemFontOfSize:70];
     label.textAlignment = NSTextAlignmentCenter;
+    label.adjustsFontSizeToFitWidth = YES;
     return label;
 }
 

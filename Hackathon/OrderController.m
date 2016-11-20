@@ -99,7 +99,7 @@
     if (_date)
         return _date;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm dd.MM.yy"];
+    [formatter setDateFormat:@"HH:mm"];
     NSString *stringFromDate = [formatter stringFromDate:self.order.createdAt];
     _date = [self createSeconLineLabelWithText:stringFromDate];
     return _date;

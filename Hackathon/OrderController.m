@@ -42,27 +42,28 @@
 }
 
 - (void)updateViewConstraints {
+    float offset = 30;
     [self.productName mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.view);
-        make.bottom.equalTo(self.doneButton.mas_top);
-        make.right.equalTo(self.view.mas_centerX);
+        make.left.top.equalTo(self.view).offset(offset);
+        make.right.equalTo(self.view).offset(-offset);
+        make.bottom.equalTo(self.price.mas_top);
     }];
     
     [self.price mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.productName.mas_right);
-        make.top.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_centerY).multipliedBy(.5f);
+        make.left.equalTo(self.view.mas_centerX);
+        make.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_centerY).multipliedBy(.5f);
+        make.bottom.equalTo(self.doneButton.mas_top);
     }];
     
     [self.date mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.productName.mas_right);
-        make.right.equalTo(self.view);
-        make.top.equalTo(self.price.mas_bottom);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.price.mas_left);
+        make.top.equalTo(self.productName.mas_bottom);
         make.bottom.equalTo(self.doneButton.mas_top);
     }];
     
     [self.doneButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        float offset = 30;
         make.right.equalTo(self.view).offset(-offset);
      	make.left.equalTo(self.view).offset(offset);
         make.top.equalTo(self.view.mas_centerY);

@@ -10,6 +10,7 @@
 
 @interface OrderManager()
 @property (nonatomic, readwrite) id<OrderManagerDelegate> delegate;
+@property (nonatomic, readwrite) NSMutableArray *activeOrderIds;
 
 @end
 
@@ -19,6 +20,7 @@
     if (self = [super init]) {
         self.delegate = delegate;
     }
+    [self orderListener];
     return self;
 }
 
@@ -83,6 +85,7 @@
     NSMutableArray *userIds = [[NSMutableArray alloc] init];
     NSMutableArray *productIds = [[NSMutableArray alloc] init];
     NSMutableArray *validOrders = [[NSMutableArray alloc] init];
+    self.activeOrderIds = [[NSMutableArray alloc] init];
     for (PFObject *order in orders) {
         NSString *userId = order[@"userId"];
         NSString *productId = order[@"productId"];
@@ -93,6 +96,7 @@
         [userIds addObject:userId];
         [productIds addObject:productId];
         [validOrders addObject:order];
+        [self.activeOrderIds addObject:order.objectId];
     }
     
     PFQuery *queryUser = [PFQuery queryWithClassName:@"User"];
@@ -140,11 +144,42 @@
             NSArray *response = [query findObjects];
             if(response.count > 0) {
                 PFObject *orderToDelete = response[0];
+                [self.activeOrderIds removeObject:order.objectId];
                 [orderToDelete deleteEventually];
             } else {
                 NSLog(@"empty deletetion");
             }
         });
+}
+
+- (void)orderListener {
+    executeInBackground(^{
+        sleep(2);
+        PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+        [query whereKey:@"objectId" notContainedIn:self.activeOrderIds];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
+            if (!error) {
+                ResultHandler handler = ^void(NSMutableArray *orders){
+                    NSMutableArray *newOrderIds = [[NSMutableArray alloc] init];
+                    for(Order *order in orders) {
+                        [newOrderIds addObject:order.objectId];
+                    }
+                    [self.activeOrderIds addObjectsFromArray:newOrderIds];
+                    
+                    for(Order *order in orders) {
+                        [self.delegate newOrderDidAppear:order];
+                    }
+                };
+                
+                [self getOtherDataFromDBWithOrders:orders
+                                        andHandler:handler];
+            } else {
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+        [self orderListener];
+    });
+    
 }
 
 @end

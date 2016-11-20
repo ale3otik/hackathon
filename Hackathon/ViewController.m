@@ -110,9 +110,9 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController
         didFinishAnimating:(BOOL)finished
-   previousViewControllers:(NSArray<OrderController *> *)previousViewControllers
+   previousViewControllers:(NSArray<OrderController *> *)previousControllers
        transitionCompleted:(BOOL)completed {
-    OrderController *controller = [previousViewControllers firstObject];
+    OrderController *controller = [previousControllers firstObject];
     self.index = controller.index;
 }
 
@@ -123,7 +123,7 @@
     Order *order = self.orders[index];
     [self.manager finishOrder:order];
     [self.orders removeObjectAtIndex:index];
-    NSInteger newIndex = index + (index != self.orders.count ? 0 : -1);
+    NSInteger newIndex = index + (index == self.orders.count ? -1 : 0);
     OrderPageController *pageController = (OrderPageController *)controller.parentViewController;
     if (self.orders.count != 0) {
         Order *order = self.orders[newIndex];

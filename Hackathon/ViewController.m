@@ -27,6 +27,8 @@
 
 @property (nonatomic) NSInteger index;
 
+@property (nonatomic) OrderPageController *pageController;
+
 @end
 
 @implementation ViewController
@@ -41,7 +43,8 @@
         [self removeIndicatorView];
         self.orders = orders;
         Order *firstOrder = [self.orders firstObject];
-        [self pushOrderPageControllerWithOrder:firstOrder];
+        if (firstOrder != nil)
+            [self pushOrderPageControllerWithOrder:firstOrder];
     };
     [self.manager obtainOrdersWithHandler:handler];
     [self.view setNeedsUpdateConstraints];
@@ -59,12 +62,17 @@
 - (void)pushOrderPageControllerWithOrder:(Order *)order {
     OrderController *controller = [OrderController orderControllerWithOrder:order
                                                                    andIndex:0];
+    
     controller.delegate = self;
-    OrderPageController *pageController = [[OrderPageController alloc] init];
-    pageController.dataSource = self;
-    pageController.delegate = self;
-    [pageController setViewController:controller];
-    [self presentViewController:pageController
+    self.pageController = [[OrderPageController alloc] init];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc]
+                                                    initWithRootViewController:self.pageController];
+    
+    self.pageController.dataSource = self;
+    self.pageController.delegate = self;
+    [self.pageController setViewController:controller];
+    [self presentViewController:navigationController
                        animated:YES
                      completion:nil];
 }
@@ -105,9 +113,9 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController
         didFinishAnimating:(BOOL)finished
-   previousViewControllers:(NSArray<OrderController *> *)previousViewControllers
+   previousViewControllers:(NSArray<OrderController *> *)previousControllers
        transitionCompleted:(BOOL)completed {
-    OrderController *controller = [previousViewControllers firstObject];
+    OrderController *controller = [previousControllers firstObject];
     self.index = controller.index;
 }
 
@@ -118,7 +126,7 @@
     Order *order = self.orders[index];
     [self.manager finishOrder:order];
     [self.orders removeObjectAtIndex:index];
-    NSInteger newIndex = index + (index != self.orders.count ? 0 : -1);
+    NSInteger newIndex = index + (index == self.orders.count ? -1 : 0);
     OrderPageController *pageController = (OrderPageController *)controller.parentViewController;
     if (self.orders.count != 0) {
         Order *order = self.orders[newIndex];
@@ -157,8 +165,15 @@
     AudioServicesPlaySystemSound(1000);
     
     [self.orders addObject:order];
+    
     if (self.orders.count == 1) {
         [self pushOrderPageControllerWithOrder:order];
+    } else {
+        OrderController *controller = [OrderController orderControllerWithOrder:self.orders[self.index]
+                                                                       andIndex:self.index];
+        
+        controller.delegate = self;
+        [self.pageController setViewController:controller];
     }
 }
 

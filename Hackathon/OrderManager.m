@@ -10,6 +10,8 @@
 
 @interface OrderManager()
 @property (nonatomic, readwrite) id<OrderManagerDelegate> delegate;
+@property (nonatomic, readwrite) NSMutableArray *activeOrderIds;
+@property (nonatomic, readwrite) bool needNewRequest;
 
 @end
 
@@ -19,6 +21,10 @@
     if (self = [super init]) {
         self.delegate = delegate;
     }
+    self.needNewRequest = false;
+    self.activeOrderIds = [[NSMutableArray alloc] init];
+    [self orderListener];
+    
     return self;
 }
 
@@ -39,11 +45,16 @@
 - (NSArray *)matchProducts:(NSArray *)products toOrders:(NSArray *)orders {
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for(PFObject *order in orders){
+        bool found = false;
         for(PFObject * product in products) {
             if([order[@"productId"] isEqual: product.objectId]) {
                 [result addObject:product];
+                found = true;
                 break;
             }
+        }
+        if(!found) {
+            NSLog(@"not found %@",order[@"productId"]);
         }
     }
     return result;
@@ -69,6 +80,7 @@
 //    }
     
     executeInMainQueue(^{
+        self.needNewRequest = true;
         handler(results);
     });
     
@@ -77,9 +89,18 @@
 - (void) getOtherDataFromDBWithOrders:(NSArray *)orders andHandler:(ResultHandler)handler {
     NSMutableArray *userIds = [[NSMutableArray alloc] init];
     NSMutableArray *productIds = [[NSMutableArray alloc] init];
+    NSMutableArray *validOrders = [[NSMutableArray alloc] init];
     for (PFObject *order in orders) {
-        [userIds addObject:order[@"userId"]];
-        [productIds addObject:order[@"productId"]];
+        NSString *userId = order[@"userId"];
+        NSString *productId = order[@"productId"];
+        if(userId == nil || productId == nil) {
+            continue;
+        }
+        
+        [userIds addObject:userId];
+        [productIds addObject:productId];
+        [validOrders addObject:order];
+        [self.activeOrderIds addObject:order.objectId];
     }
     
     PFQuery *queryUser = [PFQuery queryWithClassName:@"User"];
@@ -91,7 +112,7 @@
         if (!error) {
             [queryProduct findObjectsInBackgroundWithBlock:^(NSArray *products, NSError *error) {
                 if (!error) {
-                    [self processingResultsOfObtainingOrdersWithOrders:orders
+                    [self processingResultsOfObtainingOrdersWithOrders:validOrders
                                                            andProducts:products
                                                               andUsers:users
                                                            withHandler:handler];
@@ -127,11 +148,46 @@
             NSArray *response = [query findObjects];
             if(response.count > 0) {
                 PFObject *orderToDelete = response[0];
+                [self.activeOrderIds removeObject:order.objectId];
                 [orderToDelete deleteEventually];
             } else {
                 NSLog(@"empty deletetion");
             }
         });
+}
+
+- (void)orderListener {
+    executeInBackground(^{
+        while(true){
+            while(!self.needNewRequest) {
+                sleep(2);
+            }
+            self.needNewRequest = false;
+            PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+            [query whereKey:@"objectId" notContainedIn:self.activeOrderIds];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
+                if (!error) {
+                    ResultHandler handler = ^void(NSMutableArray *orders){
+                        NSMutableArray *newOrderIds = [[NSMutableArray alloc] init];
+                        for(Order *order in orders) {
+                            [newOrderIds addObject:order.objectId];
+                        }
+                        [self.activeOrderIds addObjectsFromArray:newOrderIds];
+                        
+                        for(Order *order in orders) {
+                            [self.delegate newOrderDidAppear:order];
+                        }
+                        self.needNewRequest = true;
+                    };
+                    
+                    [self getOtherDataFromDBWithOrders:orders
+                                            andHandler:handler];
+                } else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+    });
 }
 
 @end

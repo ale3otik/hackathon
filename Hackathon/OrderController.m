@@ -34,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     [self.view addSubview:self.productName];
     [self.view addSubview:self.price];
     [self.view addSubview:self.date];
@@ -97,7 +99,7 @@
     if (_date)
         return _date;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm dd.MM.yy"];
+    [formatter setDateFormat:@"HH:mm"];
     NSString *stringFromDate = [formatter stringFromDate:self.order.createdAt];
     _date = [self createSeconLineLabelWithText:stringFromDate];
     return _date;
@@ -118,12 +120,14 @@
     if (_doneButton)
         return _doneButton;
     _doneButton = [[UIButton alloc] init];
-    NSDictionary *attrs = @{NSFontAttributeName: [UIFont systemFontOfSize:200]};
+    NSDictionary *attrs = @{NSFontAttributeName: [UIFont systemFontOfSize:200],
+                            NSForegroundColorAttributeName: [UIColor whiteColor]};
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"DONE"
                                                                  attributes:attrs];
     [_doneButton setAttributedTitle:attrString
                            forState:UIControlStateNormal];
-    _doneButton.backgroundColor = [UIColor greenColor];
+    _doneButton.backgroundColor = [UIColor colorWithDisplayP3Red:0.23 green: 0.66
+                                                            blue: 0.23 alpha: 1.0];
     [_doneButton addTarget:self
                     action:@selector(didTapDoneButton)
           forControlEvents:UIControlEventTouchUpInside];

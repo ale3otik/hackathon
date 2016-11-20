@@ -1,6 +1,9 @@
 project.xcworkspace
+build
 Hackathon.xcworkspace/
 Podfile.lock
 Pods/
 xcuserdata
 .DS_Store
+compile_commands.json
+Report.html

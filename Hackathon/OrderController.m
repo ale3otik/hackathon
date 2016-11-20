@@ -126,7 +126,8 @@
                                                                  attributes:attrs];
     [_doneButton setAttributedTitle:attrString
                            forState:UIControlStateNormal];
-    _doneButton.backgroundColor = [UIColor greenColor];
+    _doneButton.backgroundColor = [UIColor colorWithDisplayP3Red:0.23 green: 0.66
+                                                            blue: 0.23 alpha: 1.0];
     [_doneButton addTarget:self
                     action:@selector(didTapDoneButton)
           forControlEvents:UIControlEventTouchUpInside];

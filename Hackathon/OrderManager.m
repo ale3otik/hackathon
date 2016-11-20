@@ -122,7 +122,17 @@
 
 - (void)finishOrder:(Order *)order
         withHandler:(void (^)(void))handler {
-    
+        executeInBackground(^{
+            PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+            [query whereKey:@"objectId" equalTo:order.objectId];
+            NSArray *response = [query findObjects];
+            if(response.count > 0) {
+                PFObject *orderToDelete = response[0];
+                [orderToDelete deleteEventually];
+            } else {
+                NSLog(@"empty deletetion");
+            }
+        });
 }
 
 @end

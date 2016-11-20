@@ -28,6 +28,7 @@
     }]];
     
 //    testQuery();
+//    testDelete();
     // Override point for customization after application launch.
 
     UIPageControl *pageControl = [UIPageControl appearance];

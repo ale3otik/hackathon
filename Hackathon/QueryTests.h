@@ -17,4 +17,11 @@ void testQuery() {
     [orderManager obtainOrdersWithHandler:nil];
 }
 
+void testDelete() {
+    OrderManager *orderManager = [[OrderManager alloc] initWithDelegate:nil];
+    Order * order = [[Order alloc] init];
+    order.objectId = @"R1MNrFuOM1";
+    [orderManager finishOrder:order withHandler:nil];
+}
+
 #endif /* QueryTests_h */

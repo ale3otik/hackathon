@@ -43,7 +43,8 @@
         [self removeIndicatorView];
         self.orders = orders;
         Order *firstOrder = [self.orders firstObject];
-        [self pushOrderPageControllerWithOrder:firstOrder];
+        if (firstOrder != nil)
+            [self pushOrderPageControllerWithOrder:firstOrder];
     };
     [self.manager obtainOrdersWithHandler:handler];
     [self.view setNeedsUpdateConstraints];

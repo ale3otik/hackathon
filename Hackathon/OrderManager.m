@@ -22,107 +22,49 @@
     return self;
 }
 
-- (NSArray *)matchUsers:(NSArray *)users toOrders:(NSArray *)orders {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for(PFObject *order in orders){
-        for(PFObject *user in users){
-            if([order[@"userId"] isEqual: user.objectId]) {
-                [result addObject:user];
-                break;
-            }
-        }
-    }
-    
-    return result;
-}
-
-- (NSArray *)matchProducts:(NSArray *)products toOrders:(NSArray *)orders {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for(PFObject *order in orders){
-        for(PFObject * product in products) {
-            if([order[@"productId"] isEqual: product.objectId]) {
-                [result addObject:product];
-                break;
-            }
-        }
-    }
-    return result;
-}
-
-- (void)processingResultsOfObtainingOrdersWithOrders:(NSArray *)orders
-                                      andProducts:(NSArray *)products
-                                         andUsers:(NSArray *)users
-                                      withHandler:(ResultHandler)handler{
-    
-    NSArray *matchedUsersObjects = [self matchUsers:users toOrders:orders];
-    NSArray *matchedProductsObjects = [self matchProducts:products toOrders:orders];
-    
-    NSMutableArray *results = [[NSMutableArray alloc] init];
-    for(int i = 0; i < orders.count; ++i) {
-        [results addObject:[Order orderWithPFOrder:orders[i]
-                                         andPFUser:matchedUsersObjects[i]
-                                      andPFProduct:matchedProductsObjects[i]]];
-    }
-    
-//    for(Order *order in results) {
-//        NSLog(@"%@ - %@ - %@",order.product.name, order.user.name,order.createdAt);
-//    }
-    
-    executeInMainQueue(^{
-        handler(results);
-    });
-    
-}
-
-- (void) getOtherDataFromDBWithOrders:(NSArray *)orders andHandler:(ResultHandler)handler {
-    NSMutableArray *userIds = [[NSMutableArray alloc] init];
-    NSMutableArray *productIds = [[NSMutableArray alloc] init];
-    for (PFObject *order in orders) {
-        [userIds addObject:order[@"userId"]];
-        [productIds addObject:order[@"productId"]];
-    }
-    
-    PFQuery *queryUser = [PFQuery queryWithClassName:@"User"];
-    PFQuery *queryProduct = [PFQuery queryWithClassName:@"Product"];
-    [queryUser whereKey:@"objectId" containedIn:userIds];
-    [queryProduct whereKey:@"objectId" containedIn:productIds];
-    
-    [queryUser findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        if (!error) {
-            [queryProduct findObjectsInBackgroundWithBlock:^(NSArray *products, NSError *error) {
-                if (!error) {
-                    [self processingResultsOfObtainingOrdersWithOrders:orders
-                                                           andProducts:products
-                                                              andUsers:users
-                                                           withHandler:handler];
-                }
-                else {
-                    NSLog(@"Error: %@ %@", error, [error userInfo]);
-                }
-            }];
-        } else {
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-}
-
 - (void)obtainOrdersWithHandler:(ResultHandler)handler {
+
     executeInBackground(^{
-        PFQuery *query = [PFQuery queryWithClassName:@"Order"];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
-            if (!error) {
-                [self getOtherDataFromDBWithOrders:orders andHandler:handler];
-            } else {
-                NSLog(@"Error: %@ %@", error, [error userInfo]);
-            }
-        }];
+        sleep(1);
+
+        Order *order1 = [Order orderWithProduct:[Product productWithName:@"Pizza"
+                                                                andPrice:740]
+                                        andUser:[User userWithName:@"simon"]
+                                andCreationDate:[NSDate dateWithTimeIntervalSinceNow:-120]];
+
+        Order *order2 = [Order orderWithProduct:[Product productWithName:@"Coke"
+                                                                andPrice:120]
+                                        andUser:[User userWithName:@"michael"]
+                                andCreationDate:[NSDate dateWithTimeIntervalSinceNow:-10]];
+
+        Order *order3 = [Order orderWithProduct:[Product productWithName:@"Juice"
+                                                                andPrice:70]
+                                        andUser:[User userWithName:@"Alex"]
+                                andCreationDate:[NSDate dateWithTimeIntervalSinceNow:-210]];
+
+        NSArray *results = @[order1, order2, order3];
+        executeInMainQueue(^{
+            handler(results);
+        });
+
+        for (int i = 0; i < 10; i++) {
+            sleep(4);
+            NSString *productName = [@"Pizza" stringByAppendingString:[[NSNumber numberWithInt:i] stringValue]];
+            executeInMainQueue(^{
+                [self.delegate newOrderDidAppear:[Order orderWithProduct:[Product productWithName:productName
+                                                                                         andPrice:i]
+                                                                 andUser:[User userWithName:@"simon"]
+                                                         andCreationDate:[NSDate date]]];
+            });
+        }
     });
 }
 
 - (void)finishOrder:(Order *)order
         withHandler:(void (^)(void))handler {
-    
+
+//    [gameScore removeObjectForKey:@"playerName"];
+
 }
 
 @end

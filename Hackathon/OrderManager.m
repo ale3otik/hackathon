@@ -90,7 +90,6 @@
     NSMutableArray *userIds = [[NSMutableArray alloc] init];
     NSMutableArray *productIds = [[NSMutableArray alloc] init];
     NSMutableArray *validOrders = [[NSMutableArray alloc] init];
-    self.activeOrderIds = [[NSMutableArray alloc] init];
     for (PFObject *order in orders) {
         NSString *userId = order[@"userId"];
         NSString *productId = order[@"productId"];

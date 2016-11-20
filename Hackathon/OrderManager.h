@@ -19,8 +19,7 @@ typedef void (^ResultHandler)(NSArray *);
 
 - (void)obtainOrdersWithHandler:(ResultHandler)handler;
 
-- (void)finishOrder:(Order *)order
-        withHandler:(void (^)(void))handler;
+- (void)finishOrder:(Order *)order;
 
 @end
 

@@ -120,8 +120,7 @@
     });
 }
 
-- (void)finishOrder:(Order *)order
-        withHandler:(void (^)(void))handler {
+- (void)finishOrder:(Order *)order {
         executeInBackground(^{
             PFQuery *query = [PFQuery queryWithClassName:@"Order"];
             [query whereKey:@"objectId" equalTo:order.objectId];

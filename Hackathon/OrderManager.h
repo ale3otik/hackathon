@@ -10,7 +10,7 @@
 
 #import "Order.h"
 
-typedef void (^ResultHandler)(NSArray *);
+typedef void (^ResultHandler)(NSMutableArray *);
 
 @protocol OrderManagerDelegate;
 @interface OrderManager : NSObject
@@ -19,8 +19,7 @@ typedef void (^ResultHandler)(NSArray *);
 
 - (void)obtainOrdersWithHandler:(ResultHandler)handler;
 
-- (void)finishOrder:(Order *)order
-        withHandler:(void (^)(void))handler;
+- (void)finishOrder:(Order *)order;
 
 @end
 

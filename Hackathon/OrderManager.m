@@ -107,16 +107,17 @@
 }
 
 - (void)obtainOrdersWithHandler:(ResultHandler)handler {
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Order"];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
-        if (!error) {
-            [self getOtherDataFromDBWithOrders:orders andHandler:handler];
-        } else {
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
+    executeInBackground(^{
+        PFQuery *query = [PFQuery queryWithClassName:@"Order"];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *orders, NSError *error) {
+            if (!error) {
+                [self getOtherDataFromDBWithOrders:orders andHandler:handler];
+            } else {
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+    });
 }
 
 - (void)finishOrder:(Order *)order

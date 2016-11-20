@@ -113,8 +113,10 @@
 #pragma mark - OrderControllerDelegate
 
 - (void)orderControllerDidTapDoneButton:(OrderController *)controller {
-    [self.orders removeObjectAtIndex:controller.index];
     NSInteger index = controller.index;
+    Order *order = self.orders[index];
+    [self.manager finishOrder:order];
+    [self.orders removeObjectAtIndex:index];
     NSInteger newIndex = index + (index != self.orders.count ? 0 : -1);
     OrderPageController *pageController = (OrderPageController *)controller.parentViewController;
     if (self.orders.count != 0) {

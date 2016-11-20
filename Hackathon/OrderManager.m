@@ -68,7 +68,7 @@
 //        NSLog(@"%@ - %@",order.product.name, order.user.name);
 //    }
     
-    execiteInMainQueue(^{
+    executeInMainQueue(^{
         handler(results);
     });
     

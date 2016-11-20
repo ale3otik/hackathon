@@ -16,14 +16,21 @@
 @end
 
 @implementation Product
-+ (instancetype) initWithName:(NSString *)name andPrice:(NSInteger)price {
++ (instancetype)productWithName:(NSString *)name
+                         andPrice:(NSInteger)price {
 
     Product * newProduct = [[Product alloc] init];
 
     // some validation
-
     newProduct.name = name;
     newProduct.price = price;
+    newProduct.objectId = nil;
+    return newProduct;
+}
+
++ (instancetype)productWithPFProduct:(PFObject *)product {
+    Product * newProduct = [Product productWithName:product[@"name"] andPrice:[product[@"price"] integerValue]];
+    newProduct.objectId = product[@"objectId"];
     return newProduct;
 }
 @end
